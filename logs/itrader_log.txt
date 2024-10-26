@@ -1,0 +1,1 @@
+INFO:root:Connection to Alpaca API established successfully.
