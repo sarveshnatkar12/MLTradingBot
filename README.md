@@ -1,8 +1,7 @@
 # TraderBot
 Build a trader bot which looks at sentiment of live news events and trades appropriately. 
 
-## See it live and in action 📺
-<img src="https://i.imgur.com/FaQH8rz.png"/>
+
 
 # Startup 🚀
 1. Create a virtual environment `conda create -n trader python=3.10` 
