@@ -78,7 +78,7 @@ log_account_info(api)
 class iTrader(Strategy):
     def initialize(self, symbol: str = "SPY", cash_at_risk: float = .2):
         self.symbol = symbol
-        self.sleeptime = "1M"  # Will make run every 24H
+        self.sleeptime = "24H"  # Will make run every 24H
         self.last_trade = None
         self.cash_at_risk = cash_at_risk
         self.api = REST(API_KEY, API_SECRET, BASE_URL)  # Alpaca REST API
@@ -99,12 +99,12 @@ class iTrader(Strategy):
     
     def get_sentiment(self):
         today, three_days_prior = self.get_dates()
-        print(f"Fetching news for symbol: {self.symbol} from {three_days_prior} to {today}")
+        # print(f"Fetching news for symbol: {self.symbol} from {three_days_prior} to {today}")
 
         # Fetch news from the Alpaca API
         news = self.api.get_news(self.symbol, start=three_days_prior, end=today)
         news_headlines = [ev.__dict__["_raw"]["headline"] for ev in news]
-        print(f"News headlines fetched: {news_headlines}")
+        # print(f"News headlines fetched: {news_headlines}")
 
         # Check if news headlines were retrieved
         if not news_headlines:
@@ -113,7 +113,7 @@ class iTrader(Strategy):
 
         # Perform sentiment analysis
         probability, sentiment = estimate_sentiment(news_headlines)
-        print(f"Sentiment analysis result: Probability - {probability}, Sentiment - {sentiment}")
+        # print(f"Sentiment analysis result: Probability - {probability}, Sentiment - {sentiment}")
 
         return probability, sentiment
 
@@ -155,9 +155,9 @@ class iTrader(Strategy):
 # Common broker setup for both live trading and backtesting
 broker = Alpaca(ALPACA_CREDS)
 
-strategy = iTrader(name='mlstrat', broker=broker, 
-                    parameters={"symbol":"AMZN", 
-                                "cash_at_risk":.5})
+# strategy = iTrader(name='mlstrat', broker=broker, 
+#                     parameters={"symbol":"AMZN", 
+#                                 "cash_at_risk":.5})
 
 # trader = Trader()
 # trader.add_strategy(strategy)

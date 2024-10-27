@@ -70,15 +70,9 @@ def get_sentiment(api, symbol):
         return None, None  # No headlines to analyze
 
     # Perform sentiment analysis
-    test_news = [
-        "Markets rallied strongly on the latest earnings report!",
-        "Investors are optimistic despite recent challenges.",
-        "A crisis could impact stocks heavily.",
-        "Surge in demand expected as the holiday season approaches."
-    ]
-    probability, sentiment = estimate_sentiment(test_news)
-    print(f"Sentiment analysis result: Probability - {probability}, Sentiment - {sentiment}")
-    logging.info(f"Sentiment analysis result: Probability - {probability}, Sentiment - {sentiment}")
+    probability, sentiment = estimate_sentiment(news_headlines)
+    # print(f"Sentiment analysis result: Probability - {probability}, Sentiment - {sentiment}")
+    # logging.info(f"Sentiment analysis result: Probability - {probability}, Sentiment - {sentiment}")
 
     return probability, sentiment
 

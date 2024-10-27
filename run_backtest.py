@@ -26,8 +26,8 @@
 # strategy = iTrader(name='iTraderBacktest', broker=broker, parameters={"symbol": symbol, "cash_at_risk": cash_at_risk})
 
 # # Set the backtesting period
-# backtesting_start = datetime(2022, 1, 1)
-# backtesting_end = datetime(2024, 1, 1)
+# backtesting_start = datetime(2024, 9, 1)
+# backtesting_end = datetime(2024, 10, 1)
 
 # # Run the backtest using YahooDataBacktesting
 # try:

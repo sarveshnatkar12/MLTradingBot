@@ -128,6 +128,6 @@ if mode == "Strategy-Backtest":
             log_message(f"Error during backtesting: {e}")
 
 # Display log messages
-st.subheader("Log Messages")
-for message in st.session_state.log_messages:
-    st.write(message)
+# st.subheader("Log Messages")
+# for message in st.session_state.log_messages:
+#     st.write(message)
