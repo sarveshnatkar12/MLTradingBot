@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from time import sleep
 from finbert_utils import estimate_sentiment
 
+
 # Set up logging
 log_directory = "MLTradingBot/logs"
 log_file = os.path.join(log_directory, "itrader_log.txt")
@@ -47,17 +48,17 @@ def connect_with_retry(retry_limit=3, retry_delay=5):
 # Function to get dates
 def get_dates():
     today = datetime.now()
-    three_days_prior = today - timedelta(days=3)
-    return today.strftime("%Y-%m-%d"), three_days_prior.strftime("%Y-%m-%d")
+    one_day_prior = today - timedelta(days=1)
+    return today.strftime("%Y-%m-%d"), one_day_prior.strftime("%Y-%m-%d")
 
 # Function to get sentiment
 def get_sentiment(api, symbol):
-    today, three_days_prior = get_dates()
-    print(f"Fetching news for symbol: {symbol} from {three_days_prior} to {today}")
-    logging.info(f"Fetching news for symbol: {symbol} from {three_days_prior} to {today}")
+    today, one_day_prior = get_dates()
+    print(f"Fetching news for symbol: {symbol} from {one_day_prior} to {today}")
+    logging.info(f"Fetching news for symbol: {symbol} from {one_day_prior} to {today}")
 
     # Fetch news from the Alpaca API
-    news = api.get_news(symbol, start=three_days_prior, end=today)
+    news = api.get_news(symbol, start=one_day_prior, end=today)
     news_headlines = [ev.__dict__["_raw"]["headline"] for ev in news]
     print(f"News headlines fetched: {news_headlines}")
     logging.info(f"News headlines fetched: {news_headlines}")
@@ -69,7 +70,13 @@ def get_sentiment(api, symbol):
         return None, None  # No headlines to analyze
 
     # Perform sentiment analysis
-    probability, sentiment = estimate_sentiment(news_headlines)
+    test_news = [
+        "Markets rallied strongly on the latest earnings report!",
+        "Investors are optimistic despite recent challenges.",
+        "A crisis could impact stocks heavily.",
+        "Surge in demand expected as the holiday season approaches."
+    ]
+    probability, sentiment = estimate_sentiment(test_news)
     print(f"Sentiment analysis result: Probability - {probability}, Sentiment - {sentiment}")
     logging.info(f"Sentiment analysis result: Probability - {probability}, Sentiment - {sentiment}")
 
@@ -81,7 +88,7 @@ if __name__ == "__main__":
     api = connect_with_retry()
 
     # Symbol for sentiment check
-    symbol = "GOOG"
+    symbol = "AMZN"
 
     # Get sentiment for the symbol
     probability, sentiment = get_sentiment(api, symbol)
